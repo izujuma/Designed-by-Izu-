@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", sans-serif;
+  
+  --color-apple-gray: #f5f5f7;
+  --color-apple-blue: #0066cc;
+  --color-apple-dark: #1d1d1f;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-white text-apple-dark font-sans antialiased selection:bg-apple-blue/20;
+  }
+}
+
+.glass {
+  @apply backdrop-blur-xl bg-white/70 border border-white/20;
+}
+
+.dark-glass {
+  @apply backdrop-blur-xl bg-black/70 border border-white/10;
+}
+
+.section-padding {
+  @apply py-24 px-6 md:px-12 lg:px-24;
+}
+
+.heading-xl {
+  @apply font-display text-5xl md:text-7xl font-bold tracking-tight;
+}
+
+.heading-lg {
+  @apply font-display text-4xl md:text-5xl font-semibold tracking-tight;
+}
+
+.text-muted {
+  @apply text-apple-dark/60;
+}
