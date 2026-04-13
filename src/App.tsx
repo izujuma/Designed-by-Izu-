@@ -121,7 +121,7 @@ const TRANSLATIONS = {
       logo: "Designed by Izu"
     },
     hero: {
-      categories: ["Services", "Design", "Contact"],
+      categories: ["Digital", "Design", "Services"],
       title: "Hey, I am Izu and welcome to my portfolio website",
       description: "Explore my work, services, and creative journey in digital design and technology.",
       searchTitle: "Find The Best Place",
@@ -208,7 +208,7 @@ const TRANSLATIONS = {
       logo: "تصميم إيزو"
     },
     hero: {
-      categories: ["خدمات", "تصميم", "اتصال"],
+      categories: ["رقمي", "تصميم", "خدمات"],
       title: "مرحباً، أنا إيزو وأهلاً بكم في موقع أعمالي",
       description: "استكشف أعمالي وخدماتي ورحلتي الإبداعية في التصميم الرقمي والتكنولوجيا.",
       searchTitle: "ابحث عن أفضل مكان",
@@ -310,6 +310,43 @@ const TextReveal = ({ text, className = "" }: { text: string, className?: string
             {word}
           </motion.span>
         </div>
+      ))}
+    </div>
+  );
+};
+
+const FloatingElements = () => {
+  return (
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      {[...Array(6)].map((_, i) => (
+        <motion.div
+          key={i}
+          initial={{ 
+            x: Math.random() * 100 + "%", 
+            y: Math.random() * 100 + "%",
+            opacity: 0 
+          }}
+          animate={{ 
+            x: [
+              Math.random() * 100 + "%", 
+              Math.random() * 100 + "%", 
+              Math.random() * 100 + "%"
+            ],
+            y: [
+              Math.random() * 100 + "%", 
+              Math.random() * 100 + "%", 
+              Math.random() * 100 + "%"
+            ],
+            opacity: [0.05, 0.1, 0.05],
+            rotate: [0, 180, 360]
+          }}
+          transition={{ 
+            duration: 20 + Math.random() * 10, 
+            repeat: Infinity, 
+            ease: "linear" 
+          }}
+          className="absolute w-64 h-64 bg-text-primary/5 rounded-full blur-[100px]"
+        />
       ))}
     </div>
   );
@@ -640,12 +677,11 @@ const Hero = ({ lang }: { lang: 'en' | 'ar' }) => {
           playsInline
           className="w-full h-full object-cover scale-110"
         >
-          <source src="/input_file_0.mp4" type="video/mp4" />
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-basketball-hoop-at-sunset-4813-large.mp4" type="video/mp4" />
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-samurai-warrior-standing-in-the-rain-41134-large.mp4" type="video/mp4" />
           {/* Fallback image if video fails to load */}
           <img 
-            src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=80" 
-            alt="Hero Background" 
+            src="https://images.unsplash.com/photo-1542332213-31f87348057f?auto=format&fit=crop&w=1920&q=80" 
+            alt="Samurai Background" 
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
@@ -653,12 +689,13 @@ const Hero = ({ lang }: { lang: 'en' | 'ar' }) => {
         <div className="absolute inset-0 bg-gradient-to-br from-text-primary/10 via-text-primary/5 to-bg-primary" />
       </motion.div>
 
-      <div className="section-padding relative z-10 w-full max-w-7xl mx-auto flex flex-col items-start text-left pt-32 pb-32">
+      <div className="section-padding relative z-10 w-full max-w-7xl mx-auto flex flex-col items-start text-left pt-32 pb-32 perspective-1000">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full max-w-3xl"
+          whileHover={{ rotateY: 5, rotateX: -2, scale: 1.01 }}
+          className="w-full max-w-3xl transform-gpu transition-transform duration-500"
         >
           {/* Categories */}
           <div className="flex gap-3 mb-8">
@@ -695,10 +732,12 @@ const About = ({ lang }: { lang: 'en' | 'ar' }) => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
+            whileHover={{ rotateY: 10, rotateX: -5, scale: 1.02 }}
+            className="perspective-1000"
           >
-            <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden bg-astra-gray dark:bg-zinc-900 border border-glass-border shadow-2xl">
+            <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden bg-astra-gray dark:bg-zinc-900 border border-glass-border shadow-2xl transform-gpu transition-transform duration-500">
               <img 
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80" 
+                src="/input_file_1.png" 
                 alt="Izu" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
@@ -784,16 +823,22 @@ const Services = ({ lang }: { lang: 'en' | 'ar' }) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.6 }}
-                className="relative group h-full"
+                whileHover={{ 
+                  scale: 1.05, 
+                  rotateX: 5, 
+                  rotateY: 5,
+                  z: 50
+                }}
+                className="relative group h-full perspective-1000"
               >
-                <div className="liquid-glass rounded-t-[4rem] rounded-b-2xl p-8 pt-12 h-full flex flex-col items-center text-center transition-all duration-500 hover:-translate-y-2 border-white/10">
+                <div className="liquid-glass rounded-t-[4rem] rounded-b-2xl p-8 pt-12 h-full flex flex-col items-center text-center transition-all duration-500 border-white/10 group-hover:border-text-primary/30 group-hover:shadow-2xl transform-gpu">
                   {/* Circular Icon */}
-                  <div className={`w-24 h-24 rounded-full ${iconColor} flex items-center justify-center mb-10 shadow-xl border-4 border-white/20 text-white shrink-0`}>
+                  <div className={`w-24 h-24 rounded-full ${iconColor} flex items-center justify-center mb-10 shadow-xl border-4 border-white/20 text-white shrink-0 group-hover:scale-110 transition-transform duration-500`}>
                     {React.cloneElement(SERVICES[index].icon as React.ReactElement, { size: 32, strokeWidth: 2.5 })}
                   </div>
                   
-                  <h3 className="text-xl font-bold mb-4 text-white uppercase tracking-wider">{service.title}</h3>
-                  <p className="text-white/70 text-sm leading-relaxed">
+                  <h3 className="text-xl font-bold mb-4 text-white uppercase tracking-wider group-hover:text-text-primary transition-colors duration-500">{service.title}</h3>
+                  <p className="text-white/70 text-sm leading-relaxed group-hover:text-white transition-colors duration-500">
                     {service.description}
                   </p>
                 </div>
@@ -826,7 +871,13 @@ const Projects = ({ lang }: { lang: 'en' | 'ar' }) => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.8 }}
-              className="group cursor-pointer p-10 rounded-[3rem] bg-white dark:bg-zinc-900 shadow-xl border border-glass-border hover:border-astra-cyan transition-all"
+              whileHover={{ 
+                scale: 1.02, 
+                rotateX: 2, 
+                rotateY: 2,
+                z: 20
+              }}
+              className="group cursor-pointer p-10 rounded-[3rem] bg-white dark:bg-zinc-900 shadow-xl border border-glass-border hover:border-text-primary transition-all perspective-1000 transform-gpu"
             >
               <div>
                 <span className="text-astra-cyan text-xs font-bold uppercase tracking-widest mb-3 block">
@@ -1164,6 +1215,7 @@ export default function App() {
 
   return (
     <div className={`relative selection:bg-astra-cyan/30 ${lang === 'ar' ? 'font-sans' : 'font-sans'}`}>
+      <FloatingElements />
       <AnimatePresence mode="wait">
         {isLoading && <Loader />}
       </AnimatePresence>
